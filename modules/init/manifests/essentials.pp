@@ -18,10 +18,10 @@ class essentials {
   }
 
   # Ruby modules for general development
-  package {
-    ["jekyll"]:
-      provider => "gem"
-  }
+  # package {
+  #   ["jekyll"]:
+  #     provider => "gem"
+  # }
 
   file { "/home/vagrant/software":
     ensure => "directory",

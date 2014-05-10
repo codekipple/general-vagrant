@@ -24,7 +24,7 @@ file { '/etc/motd':
 }
 
 # Make all the magic happen by instantiating the ghost class
-class { ghost:
+class { init:
 	node_version => $node_version
 }
 

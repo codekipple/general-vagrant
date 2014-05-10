@@ -1,5 +1,5 @@
 
-class ghost($node_version = "v0.10.26") {
+class init($node_version = "v0.10.26") {
     # Add some default path values
     Exec { path => ['/usr/local/bin','/usr/local/sbin','/usr/bin/','/usr/sbin','/bin','/sbin', "/home/vagrant/nvm/${node_version}/bin"], }
 
@@ -29,7 +29,7 @@ class ghost($node_version = "v0.10.26") {
     }
 
     # This function depends on some commands in the nvm.pp file
-    define npm( $directory="/home/vagrant/nvm/${ghost::node_version}/lib/node_modules" ) {
+    define npm( $directory="/home/vagrant/nvm/${init::node_version}/lib/node_modules" ) {
       exec { "install-${name}-npm-package":
         unless => "test -d ${directory}/${name}",
         command => "npm install -g ${name}",
