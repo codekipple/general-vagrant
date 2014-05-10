@@ -12,11 +12,6 @@ class init($node_version = "v0.10.26") {
     # Base packages and ruby gems (sass, compass)
     class { essentials: }
 
-    # Install and setup nginx web server
-    class { nginx:
-        require => [Class["essentials"]]
-    }
-
     # Install node through NVM
     class { 'nvm':
         node_version => $node_version,
