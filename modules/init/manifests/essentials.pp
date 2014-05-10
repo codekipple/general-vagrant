@@ -11,7 +11,6 @@ class essentials {
   package {
     ["curl",
     "libssl-dev",
-    "git-core",
     "build-essential"
     ]:
   }
