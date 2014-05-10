@@ -1,5 +1,5 @@
 
-class init($node_version = "v0.10.26") {
+class init($node_version = "v0.11.13") {
     # Add some default path values
     Exec { path => ['/usr/local/bin','/usr/local/sbin','/usr/bin/','/usr/sbin','/bin','/sbin', "/home/vagrant/nvm/${node_version}/bin"], }
 
@@ -7,13 +7,22 @@ class init($node_version = "v0.10.26") {
         command => "/usr/bin/apt-get update"
     }
 
+    exec { "add repository":
+      command => "sudo apt-add-repository -y ppa:chris-lea/node.js",
+    }
+
     Exec["apt-update"] -> Package <| |>
 
     # Set up git
     include git
 
+    # Set up Ruby
+    class { 'ruby':
+      gems_version  => 'latest'
+    }
+
     # Base packages and ruby gems (sass, compass)
-    class { essentials: }
+    class { 'essentials': }
 
     # Install node through NVM
     class { 'nvm':
@@ -37,8 +46,6 @@ class init($node_version = "v0.10.26") {
     npm {
       ["grunt-cli"]:
     }
-
-
 
     # Make sure our code directory has proper permissions
     file { '/home/vagrant/code':

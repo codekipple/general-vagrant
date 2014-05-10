@@ -7,3 +7,6 @@
 [submodule "modules/git"]
 	path = modules/git
 	url = https://github.com/puppetlabs/puppetlabs-git/
+[submodule "modules/ruby"]
+	path = modules/ruby
+	url = https://github.com/puppetlabs/puppetlabs-ruby
