@@ -19,7 +19,7 @@ class essentials {
 
   # Ruby modules for general development
   package {
-    ["sass", "bourbon"]:
+    ["jekyll"]:
       provider => "gem"
   }
 
