@@ -7,8 +7,11 @@ class init($node_version = "v0.11.13") {
         command => "/usr/bin/apt-get update"
     }
 
-    exec { "add repository":
+    exec { "add node apt-get repository":
       command => "sudo apt-add-repository -y ppa:chris-lea/node.js",
+    }
+    exec { "add git apt-get repository":
+      command => "add-apt-repository ppa:git-core/ppa",
     }
 
     Exec["apt-update"] -> Package <| |>
