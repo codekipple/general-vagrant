@@ -2,7 +2,7 @@
 $node_version = "v0.11.13"
 
 file { '/etc/motd':
-	content => "
+content => "
   Node Dev VM
     - OS: Ubuntu precise-server-cloudimg-amd64
     - Node: ${node_version}
@@ -19,4 +19,11 @@ exec
         command => '/usr/bin/apt-get update'
 }
 
-include git-core
+# Install latest git
+class { 'git-core':}
+
+# Install node through NVM
+class { 'nvm':
+    node_version => $node_version,
+    require => [Class["git-core"]]
+}

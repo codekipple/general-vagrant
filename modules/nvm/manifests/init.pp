@@ -1,6 +1,6 @@
+class nvm ($node_version)
+{
 # Taken from https://github.com/mozilla/openbadges/blob/development/.puppet-manifests/nvm.pp
-
-class nvm ($node_version) {
 
   Exec {
     path => ['/usr/local/bin','/usr/local/sbin','/usr/bin/','/usr/sbin','/bin','/sbin'],
