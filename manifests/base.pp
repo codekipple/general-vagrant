@@ -36,6 +36,7 @@ class { 'nvm':
 # Include global npm modules
 class { 'npm-modules': }
 
+# Install rbenv
 rbenv::install { 'vagrant':
     group => 'vagrant'
 }
