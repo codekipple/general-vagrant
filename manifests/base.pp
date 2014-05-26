@@ -3,23 +3,10 @@ $node_version = "v0.11.13"
 
 file { '/etc/motd':
 	content => "
-      .-----.
-    .' -   - '.       Ghost Dev VM
-   /  .-. .-.  \\      - Version: 1.2 (Casper)
-   |  | | | |  |
-    \\ \\o/ \\o/ /       - OS:      Ubuntu precise-server-cloudimg-amd64
-   _/    ^    \\_      - Node:    ${node_version}
-  | \\  '---'  / |     - IP:      10.0.0.100
-  / /`--. .--`\\ \\     - Code:    ~/code/Ghost
- / /'---` `---'\\ \\
- '.__.       .__.'
-     `|     |`
-      |     \\
-      \\      '--.
-       '.        `\\
-         `'---.   |
-            ,__) /
-             `..'
+  Node Dev VM
+    - OS: Ubuntu precise-server-cloudimg-amd64
+    - Node: ${node_version}
+    - IP: 10.0.0.100
 \n"
 }
 
