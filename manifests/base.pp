@@ -23,8 +23,13 @@ file { '/etc/motd':
 \n"
 }
 
-# Make all the magic happen by instantiating the ghost class
-class { init:
-	node_version => $node_version
+# Add some default path values
+Exec { path => ['/usr/local/bin','/usr/local/sbin','/usr/bin/','/usr/sbin','/bin','/sbin', "/home/vagrant/nvm/${node_version}/bin"], }
+
+exec
+{
+    'initial apt-get update':
+        command => '/usr/bin/apt-get update'
 }
 
+include git-core
