@@ -22,13 +22,20 @@ exec { 'initial apt-get update':
 class { 'apt-get-repositories':}
 
 # Install latest git
-class { 'git-core': }
+package { "git":
+    ensure  => latest,
+    require => [Exec['ppa-apt-update']]
+}
 
 # Install node through NVM
 class { 'nvm':
     node_version => $node_version,
-    require => [Class["git-core"]]
+    require => [Package["git"]]
 }
 
 # Include global npm modules
 class { 'npm-modules': }
+
+rbenv::install { 'vagrant':
+    group => 'vagrant'
+}
