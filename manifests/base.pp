@@ -13,12 +13,16 @@ content => "
 # Add some default path values
 Exec { path => ['/usr/local/bin','/usr/local/sbin','/usr/bin/','/usr/sbin','/bin','/sbin', "/home/vagrant/nvm/${node_version}/bin"], }
 
+# Perform initial apt-get update
 exec { 'initial apt-get update':
     command => '/usr/bin/apt-get update'
 }
 
+# add ppa's
+class { 'apt-get-repositories':}
+
 # Install latest git
-class { 'git-core':}
+class { 'git-core': }
 
 # Install node through NVM
 class { 'nvm':
@@ -26,16 +30,5 @@ class { 'nvm':
     require => [Class["git-core"]]
 }
 
-# This function depends on some commands in the nvm.pp file
-define npm( $directory="/home/vagrant/nvm/${node_version}/lib/node_modules" ) {
-    exec { "install-${name}-npm-package":
-        unless => "test -d ${directory}/${name}",
-        command => "npm install -g ${name}",
-        require => Exec['install-node'],
-    }
-}
-
-# Global npm modules
-npm {
-    ["grunt-cli", "bower"]:
-}
+# Include global npm modules
+class { 'npm-modules': }
