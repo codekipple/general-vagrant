@@ -5,8 +5,12 @@ file { '/etc/motd':
 content => "
   Node Dev VM
     - OS: Ubuntu precise-server-cloudimg-amd64
-    - Node: ${node_version}
     - IP: 10.0.0.100
+    - Git: 1.9.3
+    - Node: ${node_version}
+    - Ruby: 2.1.2 (using rbenv)
+    - Grunt CLI: latest
+    - Bower: latest
 \n"
 }
 
@@ -23,7 +27,7 @@ class { 'apt-get-repositories':}
 
 # Install latest git
 package { "git":
-    ensure  => latest,
+    ensure  => '1:1.9.3-0ppa1~precise1',
     require => [Exec['ppa-apt-update']]
 }
 
@@ -39,4 +43,9 @@ class { 'npm-modules': }
 # Install rbenv
 rbenv::install { 'vagrant':
     group => 'vagrant'
+}
+
+rbenv::compile { '2.1.2':
+    user => 'vagrant',
+    global => true
 }
