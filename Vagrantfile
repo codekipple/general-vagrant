@@ -1,9 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# NOTE: This should match your path to the Ghost source
-GhostSourcePath = "../Ghost"
-
 Vagrant.configure("2") do |config|
   # Ubuntu 12.04:
   config.vm.box = "base"
@@ -28,7 +25,8 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder GhostSourcePath, "/home/vagrant/code/Ghost", :nfs => true
+  # config.vm.synced_folder "../", "/var/www", :nfs => true
+
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
