@@ -6,7 +6,7 @@ content => "
   Node Dev VM
     - OS: Ubuntu precise-server-cloudimg-amd64
     - IP: 10.0.0.100
-    - Git: 1.9.3
+    - Git: latest stable version for this OS
     - Node: ${node_version}
     - Ruby: 2.1.2 (using rbenv)
     - Grunt CLI: latest
@@ -27,7 +27,7 @@ class { 'apt-get-repositories':}
 
 # Install latest git
 package { "git":
-    ensure  => '1:1.9.3-0ppa1~precise1',
+    ensure  => present,
     require => [Exec['ppa-apt-update']]
 }
 
