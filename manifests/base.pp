@@ -49,3 +49,5 @@ rbenv::compile { '2.1.2':
     user => 'vagrant',
     global => true
 }
+
+class { 'apache':  }
