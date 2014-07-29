@@ -9,6 +9,8 @@ content => "
     - Git: latest stable version for this OS
     - Node: ${node_version}
     - Ruby: 2.1.2 (using rbenv)
+    - apache
+    - mysql
     - Grunt CLI: latest
     - Bower: latest
 \n"
