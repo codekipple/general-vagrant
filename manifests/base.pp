@@ -52,4 +52,8 @@ rbenv::compile { '2.1.2':
 
 class { 'apache':  }
 
+class { '::mysql::server':
+  root_password    => 'password',
+}
+
 import 'sites/*.pp'
