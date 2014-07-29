@@ -51,3 +51,5 @@ rbenv::compile { '2.1.2':
 }
 
 class { 'apache':  }
+
+import 'sites/*.pp'
