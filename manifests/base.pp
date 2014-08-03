@@ -59,3 +59,20 @@ class { '::mysql::server':
 }
 
 import 'sites/*.pp'
+
+# dotfiles
+file { '/home/vagrant/.gitignore':
+    ensure  => present,
+    owner   => root, group => root,
+    source => '/vagrant/manifests/dotfiles/.gitignore'
+}
+file { '/home/vagrant/.gitconfig':
+    ensure  => present,
+    owner   => root, group => root,
+    source => '/vagrant/manifests/dotfiles/.gitconfig'
+}
+file { '/home/vagrant/.vimrc':
+    ensure  => present,
+    owner   => root, group => root,
+    source => '/vagrant/manifests/dotfiles/.vimrc'
+}

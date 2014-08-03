@@ -1,0 +1,7 @@
+[user]
+        name = codekipple
+        email = codekipple@gmail.com
+[core]
+        editor = vim
+[merge]
+        tool = vimdiff
