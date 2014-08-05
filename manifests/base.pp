@@ -31,21 +31,22 @@ package { "git":
     require => [Exec['ppa-apt-update']]
 }
 
-# Install rbenv
-rbenv::install { 'vagrant':
-    group => 'vagrant'
-}
-
-rbenv::compile { '2.1.2':
-    user => 'vagrant',
-    global => true
-}
-
 class { 'apache':  }
 
 class { '::mysql::server':
   root_password    => 'password',
 }
+
+# Install rbenv and use it to configure ruby
+rbenv::install { 'vagrant':
+    group => 'vagrant'
+}
+rbenv::compile { '2.1.2':
+    user => 'vagrant',
+    global => true
+}
+
+# replying on import even though its deprecated because as of yet vagrant does not support pointing to a folder of manifest files. Once it does we can stop using imports to keep code seperated.
 
 import 'sites/*.pp'
 
