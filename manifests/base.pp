@@ -17,13 +17,8 @@ content => "
 # Add some default path values
 Exec { path => ['/usr/local/bin','/usr/local/sbin','/usr/bin/','/usr/sbin','/bin','/sbin', "/home/vagrant/nvm/v0.11.13/bin"], }
 
-# Perform initial apt-get update
-exec { 'initial apt-get update':
-    command => '/usr/bin/apt-get update'
-}
-
 # add ppa's
-class { 'apt-get-repositories':}
+import 'ppa/init.pp'
 
 # Install latest git
 package { "git":
