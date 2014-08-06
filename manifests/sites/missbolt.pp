@@ -1,6 +1,6 @@
 apache::vhost { 'missbolt.dev.com':
     port    => '80',
-    docroot => '/var/www/missbolt',
+    docroot => '/var/www/missbolt/web',
 }
 
 mysql::db { 'missbolt_dev':
