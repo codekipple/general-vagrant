@@ -26,13 +26,26 @@ package { "git":
     require => [Exec['ppa-apt-update']]
 }
 
+
+# START apache ------------------------------
 class { 'apache':  }
 
+file { '/etc/apache2/mods-enabled/rewrite.load':
+    ensure => 'link',
+    target => '/etc/apache2/mods-available/rewrite.load',
+    notify  => Service['apache2'],
+}
+# END apache ------------------------------
+
+
+# START mysql ------------------------------
 class { '::mysql::server':
   root_password    => 'password',
 }
+# END mysql ------------------------------
 
-# Install rbenv and use it to configure ruby
+
+# START Ruby ------------------------------
 rbenv::install { 'vagrant':
     group => 'vagrant'
 }
@@ -40,6 +53,8 @@ rbenv::compile { '2.1.2':
     user => 'vagrant',
     global => true
 }
+# END Ruby ------------------------------
+
 
 # replying on import even though its deprecated because as of yet vagrant does not support pointing to a folder of manifest files. Once it does we can stop using imports to keep code seperated.
 
@@ -50,3 +65,10 @@ import 'node/*.pp'
 import 'dotfiles/init.pp'
 
 import 'nfs/init.pp'
+
+file { "/var/www" :
+    ensure => directory,
+    group => "vagrant",
+    owner => "vagrant",
+    recurse => true,
+}
