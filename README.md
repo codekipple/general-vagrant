@@ -2,6 +2,11 @@
 
 A vagrant box for doing general development, mostly php and frontend things.
 
+## TODO
+- Add php
+- Configure apache to use php-fpm
+- Decided how to make use of the shared folder
+
 ## Changelog
 
 #### 0.1.0
