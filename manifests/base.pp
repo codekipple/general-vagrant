@@ -7,10 +7,12 @@ content => "
   Node Dev VM
     - OS: Ubuntu precise-server-cloudimg-amd64
     - IP: 10.0.0.100
-    - Git: latest stable version for this OS
-    - Node: latest stable version for this OS
+    - Git
+    - Node
     - Ruby: 2.1.2 (using rbenv)
     - apache
+    - php
+    - composer
     - mysql
     - Grunt CLI: latest
     - Bower: latest
@@ -68,6 +70,18 @@ file { '/etc/apache2/mods-enabled/rewrite.load':
     require => Package['apache2']
 }
 # END apache --------------------------------
+
+
+# START php ---------------------------------
+import 'php/manifests/init.pp'
+class { 'php': }
+# END php -----------------------------------
+
+
+# START composer ----------------------------
+import 'composer/manifests/init.pp'
+class { 'composer': }
+# END composer ------------------------------
 
 
 # START mysql ------------------------------
