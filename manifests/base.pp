@@ -4,7 +4,7 @@
 
 file { '/etc/motd':
 content => "
-  Node Dev VM
+  General dev VM
     - OS: Ubuntu precise-server-cloudimg-amd64
     - IP: 10.0.0.100
     - Git
@@ -14,8 +14,8 @@ content => "
     - php
     - composer
     - mysql
-    - Grunt CLI: latest
-    - Bower: latest
+    - Grunt CLI
+    - Bower
 \n"
 }
 

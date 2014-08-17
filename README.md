@@ -1,11 +1,23 @@
 #General-Vagrant
 
-A vagrant box for doing general development, mostly php and frontend things.
+A vagrant box i use for doing general development.
+
+- OS: Ubuntu precise-server-cloudimg-amd64
+- IP: 10.0.0.100
+- Git
+- Node
+- Ruby: 2.1.2 (using rbenv)
+- apache
+- php
+- composer
+- mysql
+- Grunt CLI
+- Bower
+
 
 ## TODO
-- Add php
 - Configure apache to use php-fpm
-- Decided how to make use of the shared folder
+- Decide how to make use of the shared folder (node task managers are slow on folders shared from the client into the VM)
 
 ## Changelog
 
