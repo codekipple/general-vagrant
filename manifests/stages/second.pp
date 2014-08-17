@@ -6,7 +6,7 @@
 class second_stage {
 
     exec { "final-apt-update":
-        command => "sudo apt-get update",
+        command => "sudo /usr/bin/apt-get update"
     }
 
 }

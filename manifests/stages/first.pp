@@ -6,12 +6,16 @@
 
 class first_stage {
 
-    package { "python-software-properties":
-        ensure => present
-    }
+    # package { "python-software-properties":
+    #     ensure => present
+    # }
 
     apt::ppa { 'ppa:git-core/ppa':}
 
     apt::ppa { 'ppa:chris-lea/node.js':}
+
+    apt::ppa { 'ppa:ondrej/php5 -y':
+        require => Package['python-software-properties']
+    }
 
 }

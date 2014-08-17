@@ -40,7 +40,7 @@ class { 'second_stage':
 }
 
 class { 'apt':
-    always_apt_update => true,
+    always_apt_update => false,
     stage => first
 }
 # END stages ------------------------------
@@ -58,7 +58,6 @@ package { "git":
 }
 # END git --------------------------------
 
-
 # START apache ------------------------------
 class { 'apache':  }
 
@@ -66,6 +65,7 @@ file { '/etc/apache2/mods-enabled/rewrite.load':
     ensure => 'link',
     target => '/etc/apache2/mods-available/rewrite.load',
     notify  => Service['apache2'],
+    require => Package['apache2']
 }
 # END apache --------------------------------
 
