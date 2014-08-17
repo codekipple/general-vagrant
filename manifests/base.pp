@@ -1,3 +1,6 @@
+/*
+    Relying on import even though its deprecated because as of yet vagrant does not support pointing to a folder of manifest files. Once it does we can stop using imports to keep code separated.
+*/
 
 file { '/etc/motd':
 content => "
@@ -5,7 +8,7 @@ content => "
     - OS: Ubuntu precise-server-cloudimg-amd64
     - IP: 10.0.0.100
     - Git: latest stable version for this OS
-    - Node: v0.11.13
+    - Node: latest stable version for this OS
     - Ruby: 2.1.2 (using rbenv)
     - apache
     - mysql
@@ -14,17 +17,46 @@ content => "
 \n"
 }
 
-# Add some default path values
-Exec { path => ['/usr/local/bin','/usr/local/sbin','/usr/bin/','/usr/sbin','/bin','/sbin', "/home/vagrant/nvm/v0.11.13/bin"], }
+# START stages ------------------------------
+/*
+    Using stages to make sure apt is up to date before
+    we start installing packages in the main stage
+*/
 
-# add ppa's
-import 'ppa/init.pp'
+stage { 'first': }
+stage { 'second': }
 
-# Install latest git
-package { "git":
-    ensure  => present,
-    require => [Exec['ppa-apt-update']]
+Stage['first'] -> Stage['second'] -> Stage['main']
+
+import 'stages/first.pp'
+import 'stages/second.pp'
+
+class { 'first_stage':
+    stage => first
 }
+
+class { 'second_stage':
+    stage => second
+}
+
+class { 'apt':
+    always_apt_update => true,
+    stage => first
+}
+# END stages ------------------------------
+
+
+# START paths ------------------------------
+# Add some default path values
+Exec { path => ['/usr/local/bin','/usr/local/sbin','/usr/bin/','/usr/sbin','/bin','/sbin'], }
+# END paths --------------------------------
+
+
+# START git ------------------------------
+package { "git":
+    ensure  => latest
+}
+# END git --------------------------------
 
 
 # START apache ------------------------------
@@ -35,14 +67,31 @@ file { '/etc/apache2/mods-enabled/rewrite.load':
     target => '/etc/apache2/mods-available/rewrite.load',
     notify  => Service['apache2'],
 }
-# END apache ------------------------------
+# END apache --------------------------------
 
 
 # START mysql ------------------------------
 class { '::mysql::server':
-  root_password    => 'password',
+    root_password => 'password'
 }
-# END mysql ------------------------------
+# END mysql --------------------------------
+
+
+# START nodejs -----------------------------
+class { 'nodejs': }
+
+package { 'grunt-cli':
+    ensure   => present,
+    provider => 'npm',
+    require => Class['nodejs']
+}
+
+package { 'bower':
+    ensure   => present,
+    provider => 'npm',
+    require => Class['nodejs']
+}
+# END nodejs -------------------------------
 
 
 # START Ruby ------------------------------
@@ -53,19 +102,18 @@ rbenv::compile { '2.1.2':
     user => 'vagrant',
     global => true
 }
-# END Ruby ------------------------------
+# END Ruby --------------------------------
 
-
-# replying on import even though its deprecated because as of yet vagrant does not support pointing to a folder of manifest files. Once it does we can stop using imports to keep code seperated.
 
 import 'sites/*.pp'
-
-import 'node/*.pp'
 
 import 'dotfiles/init.pp'
 
 import 'nfs/init.pp'
 
+/*
+    make sure 'www' folder has correct permissions
+*/
 file { "/var/www" :
     ensure => directory,
     group => "vagrant",
