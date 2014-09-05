@@ -14,6 +14,9 @@ set hls
 " insert spaces on tab press
 set expandtab
 
+" Allow backspace to delete any characters, the default is only characters typed in the current session
+set backspace=indent,eol,start
+
 " number of spaces to use on tab press
 set tabstop=4
 
