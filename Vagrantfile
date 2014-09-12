@@ -6,6 +6,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "base"
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
+  config.vm.hostname = "vagrant.example.com"
+
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
