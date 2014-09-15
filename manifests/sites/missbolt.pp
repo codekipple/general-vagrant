@@ -2,7 +2,7 @@ file { "/var/www/missbolt" :
     ensure => directory,
     group => "vagrant",
     owner => "vagrant",
-    recurse => true,
+    recurse => false,
 }
 
 apache::vhost { 'missbolt.dev.com':
