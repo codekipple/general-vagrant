@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
     # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "4024"]
     # To add cores
-    #vb.customize ["modifyvm", :id, "--cpus", "4"]
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
     #vb.customize ["modifyvm", :id, "--ioapic", "on"]
 
     # Via http://blog.liip.ch/archive/2012/07/25/vagrant-and-node-js-quick-tip.html
@@ -58,5 +58,6 @@ Vagrant.configure("2") do |config|
     puppet.manifests_path = "manifests"
     puppet.manifest_file  = "base.pp"
     puppet.module_path = "modules"
+    # puppet.options = "--verbose --debug"
   end
 end
