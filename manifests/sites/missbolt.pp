@@ -8,6 +8,7 @@ file { "/var/www/missbolt" :
 apache::vhost { 'missbolt.dev.com':
     port    => '80',
     docroot => '/var/www/missbolt/web',
+    template => '/vagrant/manifests/sites/missbolt/vhost.erb',
 }
 
 mysql::db { 'missbolt_dev':

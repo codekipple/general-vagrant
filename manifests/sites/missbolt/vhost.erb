@@ -1,0 +1,15 @@
+# File Managed by Puppet
+
+<VirtualHost *:80>
+    ServerAdmin webmaster@missbolt.dev.com
+    DocumentRoot /var/www/missbolt/web
+    ServerName missbolt.dev.com
+
+    ErrorLog  /var/log/apache2/missbolt.dev.com-error_log
+    CustomLog /var/log/apache2/missbolt.dev.com-access_log common
+
+    <Directory /var/www/missbolt/web>
+        AllowOverride All
+    </Directory>
+
+</VirtualHost>
