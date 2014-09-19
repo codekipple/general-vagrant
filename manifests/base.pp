@@ -126,6 +126,11 @@ rbenv::gem { 'wpplugin':
 }
 # END Ruby --------------------------------
 
+# START htop ------------------------------
+package { 'htop':
+    ensure   => present
+}
+# END htop --------------------------------
 
 import 'sites/*.pp'
 
