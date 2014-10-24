@@ -1,0 +1,14 @@
+# File Managed by Puppet
+
+<VirtualHost *:80>
+    DocumentRoot /var/www
+    ServerName vagrant.dev.com
+
+    ErrorLog  /var/log/apache2/vagrant.dev.com-error_log
+    CustomLog /var/log/apache2/vagrant.dev.com-access_log common
+
+    <Directory /var/www>
+        AllowOverride All
+    </Directory>
+
+</VirtualHost>
