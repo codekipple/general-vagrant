@@ -132,6 +132,12 @@ package { 'htop':
 }
 # END htop --------------------------------
 
+# START imagick ------------------------------
+package { 'php5-imagick':
+    ensure   => present
+}
+# END imagick --------------------------------
+
 import 'sites/*.pp'
 
 import 'dotfiles/init.pp'
