@@ -9,4 +9,6 @@ class second_stage {
         command => "sudo /usr/bin/apt-get update"
     }
 
+    include stdlib
+
 }
