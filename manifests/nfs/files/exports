@@ -15,6 +15,6 @@
 # With those matching rw and insecure set the NFS client should be able to
 # write to the shared folders.
 
-/var/www    10.0.0.100/24(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
+/var/www    192.168.2.25/24(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
 
-/home/vagrant   10.0.0.100/24(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
+/home/vagrant   192.168.2.25/24(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
