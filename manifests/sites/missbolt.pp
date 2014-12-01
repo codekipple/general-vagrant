@@ -5,7 +5,7 @@ file { "/var/www/missbolt" :
     recurse => false,
 }
 
-apache::vhost { 'missbolt.dev.com':
+apache::vhost { 'missbolt.dev.codekipple.com':
     port    => '80',
     docroot => '/var/www/missbolt/web',
     template => '/vagrant/manifests/sites/missbolt/vhost.erb',
