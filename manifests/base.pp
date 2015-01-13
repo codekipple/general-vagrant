@@ -5,8 +5,8 @@
 file { '/etc/motd':
 content => "
   General dev VM
-    - OS: Ubuntu precise-server-cloudimg-amd64
-    - IP: 10.0.0.100
+    - OS: Ubuntu 12.04
+    - IP: ${ip}
     - Git
     - Node
     - Ruby: 2.1.2 (using rbenv)

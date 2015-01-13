@@ -2,7 +2,6 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  # Ubuntu 12.04:
   config.vm.box = "base"
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
 
@@ -49,6 +48,12 @@ Vagrant.configure("2") do |config|
     puppet.manifests_path = "manifests"
     puppet.manifest_file  = "base.pp"
     puppet.module_path = "modules"
+
+    # use facter to pass a hash of variables to puppet set as facter variables
+    puppet.facter = {
+      "ip" => _ip
+    }
+
     # puppet.options = "--verbose --debug"
   end
 end
