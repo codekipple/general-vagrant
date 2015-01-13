@@ -8,10 +8,18 @@ Vagrant.configure("2") do |config|
 
   config.vm.hostname = "vagrant.example.com"
 
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  config.vm.network "public_network", ip: "192.168.2.25", bridge: 'en1: Wi-Fi (AirPort)'
+  # Create a public network, the ip needs to be different depending on the network we're on
+  # pass environment variables to alter the ip
+
+  if ENV['LOCATION'] == 'coexist'
+    _ip = "10.0.0.111" # 10.0.0.0/8
+  elseif ENV['LOCATION'] == 'other'
+    _ip = "172.16.0.111" # 172.16.0.0/12
+  else
+    _ip = "192.168.2.25" # 192.168.0.0/16
+  end
+
+  config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)", ip: _ip
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -21,8 +29,7 @@ Vagrant.configure("2") do |config|
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
-  # Example for VirtualBox:
-  #
+  # Example using VirtualBox:
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
     vb.gui = true
@@ -36,7 +43,7 @@ Vagrant.configure("2") do |config|
     # Via http://blog.liip.ch/archive/2012/07/25/vagrant-and-node-js-quick-tip.html
     vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
-  #
+
   # View the documentation for the provider you're using for more
   # information on available options.
 
