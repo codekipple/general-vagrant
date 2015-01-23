@@ -1,0 +1,14 @@
+# File Managed by Puppet
+
+<VirtualHost *:80>
+    DocumentRoot /var/www/<%= @docroot %>
+    ServerName <%= @domain %>.dev.codekipple.com
+
+    ErrorLog  /var/log/apache2/<%= @domain %>.dev.com-error_log
+    CustomLog /var/log/apache2/<%= @domain %>.dev.com-access_log common
+
+    <Directory /var/www>
+        AllowOverride All
+    </Directory>
+
+</VirtualHost>

@@ -1,18 +1,24 @@
-file { "/var/www/missbolt" :
-    ensure => directory,
-    group => "vagrant",
-    owner => "vagrant",
-    recurse => false,
-}
+class missbolt {
+    $folder = "missbolt"
+    $docroot = "${$folder}/web"
+    $domain = $folder
 
-apache::vhost { 'missbolt.dev.codekipple.com':
-    port    => '80',
-    docroot => '/var/www/missbolt/web',
-    template => '/vagrant/manifests/sites/missbolt/vhost.erb',
-}
+    file { "/var/www/${folder}" :
+        ensure => directory,
+        group => "vagrant",
+        owner => "vagrant",
+        recurse => false,
+    }
 
-mysql::db { 'missbolt_dev':
-    user     => 'missbolt_dev',
-    password => 'password',
-    host     => 'localhost'
+    apache::vhost { '${domain}.dev.codekipple.com':
+        port    => '80',
+        docroot => '/var/www/${docroot}',
+        template => "/vagrant/manifests/sites/templates/vhost.erb"
+    }
+
+    mysql::db { '${domain}_dev':
+        user     => '${domain}_dev',
+        password => 'password',
+        host     => 'localhost'
+    }
 }
