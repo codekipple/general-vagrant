@@ -10,12 +10,18 @@ Vagrant.configure("2") do |config|
   # Create a public network, the ip needs to be different depending on the network we're on
   # pass environment variables to alter the ip
 
-  if ENV['LOCATION'] == 'coexist'
-    _ip = "10.0.0.111" # 10.0.0.0/8
-  elseif ENV['LOCATION'] == 'other'
-    _ip = "172.16.0.111" # 172.16.0.0/12
+  if ENV['VM_LOCATION'] == 'coexist'
+    _ip = "10.0.0.111/8" # 10.0.0.0/8
+  elseif ENV['VM_LOCATION'] == 'other'
+    _ip = "172.16.0.111/12" # 172.16.0.0/12
   else
-    _ip = "192.168.2.25" # 192.168.0.0/16
+    _ip = "192.168.2.25/16" # 192.168.0.0/16
+  end
+
+  if ENV['VM_STAGES'] == "yes"
+    _stages = "yes"
+  else
+    _stages = "no"
   end
 
   config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)", ip: _ip
@@ -51,7 +57,8 @@ Vagrant.configure("2") do |config|
 
     # use facter to pass a hash of variables to puppet set as facter variables
     puppet.facter = {
-      "ip" => _ip
+      "ip" => _ip,
+      "stages" => _stages
     }
 
     # puppet.options = "--verbose --debug"

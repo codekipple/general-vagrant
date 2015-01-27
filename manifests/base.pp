@@ -24,26 +24,27 @@ content => "
     Using stages to make sure apt is up to date before
     we start installing packages in the main stage
 */
+if ($stages == "yes") {
+    stage { 'first': }
+    stage { 'second': }
 
-stage { 'first': }
-stage { 'second': }
+    Stage['first'] -> Stage['second'] -> Stage['main']
 
-Stage['first'] -> Stage['second'] -> Stage['main']
+    import 'stages/first.pp'
+    import 'stages/second.pp'
 
-import 'stages/first.pp'
-import 'stages/second.pp'
+    class { 'first_stage':
+        stage => first
+    }
 
-class { 'first_stage':
-    stage => first
-}
+    class { 'second_stage':
+        stage => second
+    }
 
-class { 'second_stage':
-    stage => second
-}
-
-class { 'apt':
-    always_apt_update => false,
-    stage => first
+    class { 'apt':
+        always_apt_update => false,
+        stage => first
+    }
 }
 # END stages ------------------------------
 
