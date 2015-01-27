@@ -1,0 +1,20 @@
+# /etc/exports: the access control list for filesystems which may be exported
+#       to NFS clients.  See exports(5).
+#
+# Example for NFSv2 and NFSv3:
+# /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+#
+# Example for NFSv4:
+# /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+# /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+#
+#
+# The anonuid and anongid must match the uid and gid on the user on the
+# virtual machine. In this case the user is 'vagrant'.
+# You can check the values by running 'id vagrant' on the virtual machine
+# With those matching rw and insecure set the NFS client should be able to
+# write to the shared folders.
+
+/var/www    <%= @ip %>(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
+
+/home/vagrant   <%= @ip %>(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
