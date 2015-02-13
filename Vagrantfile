@@ -2,21 +2,9 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "base"
-  config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/precise/current/precise-server-cloudimg-amd64-vagrant-disk1.box"
+  config.vm.box = "ubuntu/trusty64"
 
   config.vm.hostname = "vagrant.example.com"
-
-  # Create a public network, the ip needs to be different depending on the network we're on
-  # pass environment variables to alter the ip
-
-  if ENV['VM_LOCATION'] == 'coexist'
-    _ip = "10.0.0.111/8" # 10.0.0.0/8
-  elseif ENV['VM_LOCATION'] == 'other'
-    _ip = "172.16.0.111/12" # 172.16.0.0/12
-  else
-    _ip = "192.168.2.25/16" # 192.168.0.0/16
-  end
 
   if ENV['VM_STAGES'] == "yes"
     _stages = "yes"
@@ -24,7 +12,28 @@ Vagrant.configure("2") do |config|
     _stages = "no"
   end
 
-  config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)", ip: _ip
+  # environment variables used to alter networking settings
+  if ENV['VM_LOCATION'] == 'coexist'
+    _ip = "172.16.2.23/12"
+  elsif ENV['VM_LOCATION'] == 'home'
+    _ip = "192.168.2.25/16"
+    _bridge = "en1: Wi-Fi (AirPort)"
+  end
+
+  # Create a public network
+  if defined?(_ip) && defined?(_bridge)
+    config.vm.network "public_network", bridge: _bridge, ip: _ip
+  elsif defined?(_ip)
+    config.vm.network "public_network", ip: _ip
+  else
+    config.vm.network "public_network"
+  end
+
+  # Due to some issues with the ssh keys that arises when a
+  # VM becomes disassociated with vagrant we are just using
+  # username and password for now even though it's not as secure
+  config.ssh.username = "vagrant"
+  config.ssh.password = "vagrant"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
