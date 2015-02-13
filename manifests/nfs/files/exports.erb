@@ -15,6 +15,6 @@
 # With those matching rw and insecure set the NFS client should be able to
 # write to the shared folders.
 
-/var/www    <%= @ip %>(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
+/var/www    <%= scope.lookupvar('ipaddress_eth1') %>/<%= scope.function_netmask_to_masklen([@netmask_eth1]) %>(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
 
-/home/vagrant   <%= @ip %>(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
+/home/vagrant   <%= scope.lookupvar('ipaddress_eth1') %>/<%= scope.function_netmask_to_masklen([@netmask_eth1]) %>(rw,all_squash,anonuid=1001,anongid=1001,async,no_subtree_check,insecure)
