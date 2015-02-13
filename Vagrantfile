@@ -12,19 +12,12 @@ Vagrant.configure("2") do |config|
     _stages = "no"
   end
 
+  # Create a public network
   # environment variables used to alter networking settings
   if ENV['VM_LOCATION'] == 'coexist'
-    _ip = "172.16.2.23/12"
+    config.vm.network "public_network", ip: "172.16.2.23", netmask: "255.255.240.0"
   elsif ENV['VM_LOCATION'] == 'home'
-    _ip = "192.168.2.25/16"
-    _bridge = "en1: Wi-Fi (AirPort)"
-  end
-
-  # Create a public network
-  if defined?(_ip) && defined?(_bridge)
-    config.vm.network "public_network", bridge: _bridge, ip: _ip
-  elsif defined?(_ip)
-    config.vm.network "public_network", ip: _ip
+    config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)", ip: "192.168.2.25"
   else
     config.vm.network "public_network"
   end
@@ -66,7 +59,6 @@ Vagrant.configure("2") do |config|
 
     # use facter to pass a hash of variables to puppet set as facter variables
     puppet.facter = {
-      "ip" => _ip,
       "stages" => _stages
     }
 
