@@ -6,7 +6,7 @@ package { 'nfs-kernel-server':
 file { '/etc/exports':
     ensure => present,
     owner => root, group => root,
-    content => template('/vagrant/manifests/nfs/files/exports.erb'),
+    content => template('/vagrant/manifests/nodes/templates/nfs/exports.erb'),
     notify => Service['nfs-kernel-server'], # ssh will restart whenever you edit this file.
     require => Package['nfs-kernel-server']
 }

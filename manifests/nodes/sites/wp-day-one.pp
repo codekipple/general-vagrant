@@ -1,7 +1,7 @@
 class wp-day-one {
     $folder = "wp-day-one"
     $docroot = "${$folder}/web"
-    $domain = $docroot
+    $domain = $folder
 
     file { "/var/www/${folder}" :
         ensure => directory,
@@ -13,7 +13,7 @@ class wp-day-one {
     apache::vhost { "${domain}.dev.codekipple.com":
         port    => "80",
         docroot => "/var/www/${docroot}",
-        template => "/vagrant/manifests/sites/templates/vhost.erb",
+        template => "/vagrant/manifests/nodes/templates/vhosts/vhost.erb",
     }
 
     mysql::db { 'wpdayone_dev':
@@ -22,3 +22,5 @@ class wp-day-one {
         host     => 'localhost'
     }
 }
+
+class { 'wp-day-one': }

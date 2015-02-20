@@ -10,9 +10,11 @@ class codekipple {
         recurse => false,
     }
 
-    apache::vhost { '${domain}.dev.codekipple.com':
+    apache::vhost { "${domain}.dev.codekipple.com":
         port    => '80',
-        docroot => '/var/www/${folder}',
-        template => "/vagrant/manifests/sites/templates/vhost.erb"
+        docroot => "/var/www/${docroot}",
+        template => "/vagrant/manifests/nodes/templates/vhosts/vhost.erb"
     }
 }
+
+class { 'codekipple': }
