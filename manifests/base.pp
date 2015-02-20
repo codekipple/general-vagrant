@@ -94,7 +94,9 @@ class { '::mysql::server':
 
 
 # START nodejs -----------------------------
-class { 'nodejs': }
+class { 'nodejs':
+    version => 'latest'
+}
 
 package { 'grunt-cli':
     ensure   => present,
