@@ -8,6 +8,9 @@ class first_stage {
 
     apt::ppa { 'ppa:git-core/ppa':}
 
+    # TODO: change PPA
+    # https://nodesource.com/blog/chris-lea-joins-forces-with-nodesource
+    # https://deb.nodesource.com/setup
     apt::ppa { 'ppa:chris-lea/node.js':}
 
     apt::ppa { 'ppa:ondrej/php5 -y':
