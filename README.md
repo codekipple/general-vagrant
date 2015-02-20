@@ -1,6 +1,6 @@
 #General-Vagrant
 
-A vagrant box i use for doing general development.
+A vagrant box I use for doing general development.
 
 - OS: Ubuntu precise-server-cloudimg-amd64
 - IP: 10.0.0.100
@@ -14,10 +14,14 @@ A vagrant box i use for doing general development.
 - Grunt CLI
 - Bower
 
+## Puppet module dependencies guide
+- stdlib -> required by -> [puppetlabs/puppetlabs-apt, puppetlabs/puppetlabs-nodejs, puppetlabs/puppetlabs-mysql]
+- apt -> required by -> [puppetlabs/puppetlabs-nodejs]
+- puppi -> required by -> [example42/puppet-apache]
 
 ## TODO
 - Configure apache to use php-fpm
-- Decide how to make use of the shared folder (node task managers are slow on folders shared from the client into the VM)
+- Decide how to make use of the shared folder (node task managers are slow on folders shared from the host into the VM)
 
 ## Changelog
 
