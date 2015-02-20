@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "codekipple/ubuntu-trusty64-latestpuppet"
 
   config.vm.hostname = "vagrant.example.com"
 
@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
   # Create a public network
   # environment variables used to alter networking settings
   if ENV['VM_LOCATION'] == 'coexist'
-    config.vm.network "public_network", ip: "172.16.2.23", netmask: "255.255.240.0"
+    config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)", ip: "172.16.2.300", netmask: "255.255.240.0"
   elsif ENV['VM_LOCATION'] == 'home'
     config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)", ip: "192.168.2.25"
   else
