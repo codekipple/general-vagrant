@@ -4,20 +4,24 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "codekipple/ubuntu-trusty64-latestpuppet"
 
-  if ENV['VM_STAGES'] == "yes"
+  if ENV['vm_stages'] == "yes"
     _stages = "yes"
   else
     _stages = "no"
   end
 
+  _bridge = "en1: Wi-Fi (AirPort)"
+
   # Create a public network
   # environment variables used to alter networking settings
-  if ENV['VM_LOCATION'] == 'coexist'
-    config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)", ip: "172.16.2.300", netmask: "255.255.240.0"
-  elsif ENV['VM_LOCATION'] == 'home'
-    config.vm.network "public_network", bridge: "en1: Wi-Fi (AirPort)", ip: "192.168.2.25"
+  if ENV['vm_location'] == 'coexist'
+    config.vm.network "public_network", bridge: _bridge, ip: "172.16.2.300", netmask: "255.255.240.0"
+    config.vm.network "private_network", bridge: _bridge, type: "dhcp"
+  elsif ENV['vm_location'] == 'home'
+    config.vm.network "public_network", bridge: _bridge, ip: "192.168.2.25"
+    config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   else
-    config.vm.network "public_network"
+    config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   end
 
   # Due to some issues with the ssh keys that arises when a
@@ -30,7 +34,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../", "/var/www/code", type: "nfs"
+  config.vm.synced_folder "../", "/var/www", type: "nfs"
 
   # Provider (VirtualBox, VMWare, ect) configuration
   # Example using VirtualBox:
