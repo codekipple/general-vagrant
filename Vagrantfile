@@ -4,8 +4,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "codekipple/ubuntu-trusty64-latestpuppet"
 
-  config.vm.hostname = "vagrant.example.com"
-
   if ENV['VM_STAGES'] == "yes"
     _stages = "yes"
   else
