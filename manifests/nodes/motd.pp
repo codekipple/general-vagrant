@@ -1,7 +1,7 @@
 file { '/etc/motd':
 content => "
   General dev VM
-    - OS: Ubuntu 12.04
+    - OS: Ubuntu 14.04
     - IP: ${::ipaddress_eth1}
     - Netmask: ${::netmask_eth1}
     - Git
