@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
     config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   elsif ENV['vm_location'] == 'home'
     config.vm.network "public_network", bridge: _bridge, ip: "192.168.2.25"
-    config.vm.network "private_network", bridge: _bridge, type: "dhcp"
+    config.vm.network "private_network", bridge: _bridge, ip: "172.28.128.3"
   else
     config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   end
@@ -41,15 +41,14 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
     vb.gui = true
-
-    # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "4024"]
-    # To add cores
     vb.customize ["modifyvm", :id, "--cpus", "2"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
     #vb.customize ["modifyvm", :id, "--ioapic", "on"]
 
     # Via http://blog.liip.ch/archive/2012/07/25/vagrant-and-node-js-quick-tip.html
-    vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+    # vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
   end
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
