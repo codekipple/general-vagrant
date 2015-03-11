@@ -1,13 +1,13 @@
 # File Managed by Puppet
 
 <VirtualHost *:80>
-    DocumentRoot /var/www/<%= @docroot %>
-    ServerName <%= @domain %>.dev.codekipple.com
+    DocumentRoot <%= @docroot %>
+    ServerName <%= @domain %>
 
-    ErrorLog  /var/log/apache2/<%= @domain %>.dev.com-error_log
-    CustomLog /var/log/apache2/<%= @domain %>.dev.com-access_log common
+    ErrorLog  /var/log/apache2/<%= @domain %>-error_log
+    CustomLog /var/log/apache2/<%= @domain %>-access_log common
 
-    <Directory /var/www>
+    <Directory <%= @docroot %>>
         AllowOverride All
     </Directory>
 

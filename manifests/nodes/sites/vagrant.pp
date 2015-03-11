@@ -1,13 +1,10 @@
 class www_folder {
     $folder = ""
-    $docroot = $folder
-    $domain = $folder
+    $docroot = ""
+    $domain = "dev.codekipple.com"
 
     file { "/var/www" :
-        ensure => directory,
-        group => "vagrant",
-        owner => "vagrant",
-        recurse => false,
+        ensure => directory
     }
 
     apache::vhost { 'dev.codekipple.com':
