@@ -1,3 +1,3 @@
 class { '::mysql::server':
-    root_password => 'password'
+    root_password => hiera('mysql::password')
 }
