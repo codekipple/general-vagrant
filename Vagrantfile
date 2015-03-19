@@ -20,6 +20,10 @@ Vagrant.configure("2") do |config|
   elsif ENV['vm_location'] == 'home'
     config.vm.network "public_network", bridge: _bridge, ip: "192.168.2.25"
     config.vm.network "private_network", bridge: _bridge, type: "dhcp", ip: "172.28.128.3"
+  elsif ENV['vm_location'] == 'gv'
+    _bridge = "en0: Ethernet"
+    config.vm.network "public_network", bridge: _bridge, ip: "192.168.0.21"
+    config.vm.network "private_network", bridge: _bridge, type: "dhcp", ip: "172.28.128.3"
   else
     config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   end
