@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
     config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   elsif ENV['vm_location'] == 'home'
     config.vm.network "public_network", bridge: _bridge, ip: "192.168.2.25"
-    config.vm.network "private_network", bridge: _bridge, ip: "172.28.128.3"
+    config.vm.network "private_network", bridge: _bridge, type: "dhcp", ip: "172.28.128.3"
   else
     config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   end
@@ -34,7 +34,10 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "../", "/var/www", type: "nfs"
+  config.vm.synced_folder "../", "/var/www", :nfs => { :mount_options => ["dmode=777","fmode=775"] }
+
+  config.nfs.map_uid = Process.uid
+  config.nfs.map_gid = Process.gid
 
   # Provider (VirtualBox, VMWare, ect) configuration
   # Example using VirtualBox:
@@ -62,7 +65,9 @@ Vagrant.configure("2") do |config|
 
     # use facter to pass a hash of variables to puppet set as facter variables
     puppet.facter = {
-      "stages" => _stages
+      "stages" => _stages,
+      "host_uid" => config.nfs.map_uid,
+      "host_gid" => config.nfs.map_gid
     }
 
     # puppet.options = "--verbose --debug"
