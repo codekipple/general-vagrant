@@ -18,11 +18,11 @@ Vagrant.configure("2") do |config|
     config.vm.network "public_network", bridge: _bridge, ip: "172.16.2.300", netmask: "255.255.240.0"
     config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   elsif ENV['vm_location'] == 'home'
-    config.vm.network "public_network", bridge: _bridge, ip: "192.168.2.25"
+    config.vm.network "public_network", bridge: _bridge, ip: "192.168.1.99"
     config.vm.network "private_network", bridge: _bridge, type: "dhcp", ip: "172.28.128.3"
   elsif ENV['vm_location'] == 'gv'
     _bridge = "en0: Ethernet"
-    config.vm.network "public_network", bridge: _bridge, ip: "192.168.0.21"
+    config.vm.network "public_network", bridge: _bridge, ip: "192.168.0.99"
     config.vm.network "private_network", bridge: _bridge, type: "dhcp", ip: "172.28.128.3"
   else
     config.vm.network "private_network", bridge: _bridge, type: "dhcp"
@@ -33,6 +33,7 @@ Vagrant.configure("2") do |config|
   # username and password for now even though it's not as secure
   config.ssh.username = "vagrant"
   config.ssh.password = "vagrant"
+  config.ssh.forward_agent = true
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -48,7 +49,7 @@ Vagrant.configure("2") do |config|
   config.vm.provider :virtualbox do |vb|
     # Don't boot with headless mode
     vb.gui = true
-    vb.customize ["modifyvm", :id, "--memory", "4024"]
+    vb.customize ["modifyvm", :id, "--memory", "8000"]
     vb.customize ["modifyvm", :id, "--cpus", "2"]
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
