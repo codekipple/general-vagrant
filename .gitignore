@@ -7,6 +7,7 @@
 !/manifests/nodes/templates/vhosts/vhost.erb
 
 # ignore dotfiles
+/manifests/nodes/dotfiles.pp
 /manifests/nodes/templates/dotfiles/*
 !/manifests/nodes/templates/dotfiles/.gitkeep
 
