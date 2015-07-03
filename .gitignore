@@ -1,2 +1,14 @@
+# ignore sites
+/manifests/nodes/sites/*
+!/manifests/nodes/sites/example-site.pp
+
+# ignore vhosts
+/manifests/nodes/templates/vhosts/*
+!/manifests/nodes/templates/vhosts/vhost.erb
+
+# ignore dotfiles
+/manifests/nodes/templates/dotfiles/*
+!/manifests/nodes/templates/dotfiles/.gitkeep
+
 .vagrant
 .DS_Store
