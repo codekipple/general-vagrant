@@ -4,29 +4,21 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "codekipple/ubuntu-trusty64-latestpuppet"
 
+  # use environment variable to specify if the puppet stages should run
   if ENV['vm_stages'] == "yes"
     _stages = "yes"
   else
     _stages = "no"
   end
 
+  # Setup networking, environment variables used to alter networking settings
   _bridge = "en1: Wi-Fi (AirPort)"
 
-  # Create a public network
-  # environment variables used to alter networking settings
-  if ENV['vm_location'] == 'coexist'
-    config.vm.network "public_network", bridge: _bridge, ip: "172.16.2.300", netmask: "255.255.240.0"
-    config.vm.network "private_network", bridge: _bridge, type: "dhcp"
-  elsif ENV['vm_location'] == 'home'
-    config.vm.network "public_network", bridge: _bridge, ip: "192.168.1.99"
-    config.vm.network "private_network", bridge: _bridge, type: "dhcp", ip: "172.28.128.3"
-  elsif ENV['vm_location'] == 'gv'
+  if ENV['vm_location'] == 'gv'
     _bridge = "en0: Ethernet"
-    config.vm.network "public_network", bridge: _bridge, ip: "192.168.0.99"
-    config.vm.network "private_network", bridge: _bridge, type: "dhcp", ip: "172.28.128.3"
-  else
-    config.vm.network "private_network", bridge: _bridge, type: "dhcp"
   end
+
+  config.vm.network "private_network", bridge: _bridge, type: "dhcp", ip: "172.28.128.3"
 
   # Due to some issues with the ssh keys that arises when a
   # VM becomes disassociated with vagrant we are just using
