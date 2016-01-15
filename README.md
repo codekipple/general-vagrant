@@ -3,16 +3,13 @@
 A vagrant box I use for doing general development.
 
 - OS: Ubuntu precise-server-cloudimg-amd64
-- IP: 10.0.0.100
+- IP: 172.28.128.3
 - Git
-- Node
 - Ruby: 2.1.2 (using rbenv)
 - apache
 - php
 - composer
 - mysql
-- Grunt CLI
-- Bower
 
 ## Puppet module dependencies guide
 - stdlib -> required by -> [puppetlabs/puppetlabs-apt, puppetlabs/puppetlabs-nodejs, puppetlabs/puppetlabs-mysql]
@@ -21,7 +18,6 @@ A vagrant box I use for doing general development.
 
 ## TODO
 - Configure apache to use php-fpm
-- Decide how to make use of the shared folder (node task managers are slow on folders shared from the host into the VM)
 
 ## Changelog
 
@@ -36,4 +32,6 @@ A vagrant box I use for doing general development.
 - Initialise and fetch submodules
     - `git submodule init`
     - `git submodule update --recursive`
-- Run `vagrant up` from the root of the cloned repo.
+- Run `vm_stages=yes vagrant up` from the root of the cloned repo.
+
+On first provision of the vagrant make sure to use the stages environment variable `vm_stages=yes` this is too ensure the puppet stages that update apt-get are run. We don't want to run them on every provision because it's slow but it does need to be run on the first provision.
