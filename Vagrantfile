@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
   # username and password for now even though it's not as secure
   config.ssh.username = "vagrant"
   config.ssh.password = "vagrant"
+  config.ssh.private_key_path = "~/.ssh/id_rsa"
   config.ssh.forward_agent = true
 
   # Share an additional folder to the guest VM. The first argument is
